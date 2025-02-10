@@ -1,0 +1,11 @@
+dependencies{
+	implementation project(':repository:repository-chat')
+}
+
+bootJar {
+	enabled = false
+}
+
+jar {
+	enabled = true
+}

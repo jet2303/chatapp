@@ -1,0 +1,13 @@
+dependencies{
+	implementation project(':service:service-chat')
+//	implementation project(':chatapp')
+	
+}
+
+bootJar {
+	enabled = false
+}
+
+jar {
+	enabled = true
+}

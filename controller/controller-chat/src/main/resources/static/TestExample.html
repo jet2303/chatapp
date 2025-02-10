@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WebSocket Example</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        #messages {
+            border: 1px solid #ddd;
+            padding: 10px;
+            height: 200px;
+            overflow-y: scroll;
+            margin-bottom: 10px;
+        }
+        #input-area {
+            display: flex;
+            gap: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>WebSocket Client</h1>
+    <div id="messages">Messages will appear here...</div>
+    <div id="input-area">
+        <input type="text" id="messageInput" placeholder="Enter your message" style="flex: 1;">
+        <button id="sendButton">Send</button>
+    </div>
+    <script>
+        // WebSocket 서버 주소 (예: ws://localhost:8080/websocket)
+        const websocketUrl = "ws://localhost:8080/ws";
+
+        // WebSocket 객체 생성
+        const socket = new WebSocket(websocketUrl);
+
+        // 메시지 표시 영역
+        const messagesDiv = document.getElementById("messages");
+
+        // 메시지 전송 버튼과 입력 필드
+        const messageInput = document.getElementById("messageInput");
+        const sendButton = document.getElementById("sendButton");
+
+        // WebSocket 연결 성공 시
+        socket.onopen = () => {
+            addMessage("Connected to WebSocket server.");
+        };
+
+        // WebSocket 메시지 수신 시
+        socket.onmessage = (event) => {
+            addMessage(`Server: ${event.data}`);
+        };
+
+        // WebSocket 연결 종료 시
+        socket.onclose = () => {
+            addMessage("Disconnected from WebSocket server.");
+        };
+
+        // WebSocket 에러 발생 시
+        socket.onerror = (error) => {
+            addMessage(`Error: ${error}`);
+        };
+
+        // 메시지 전송 버튼 클릭 이벤트
+        sendButton.addEventListener("click", () => {
+            const message = messageInput.value;
+            if (message) {
+                socket.send(message);
+                addMessage(`You: ${message}`);
+                messageInput.value = ""; // 입력 필드 초기화
+            }
+        });
+
+        // 메시지를 메시지 영역에 추가
+        function addMessage(message) {
+            const messageElement = document.createElement("div");
+            messageElement.textContent = message;
+            messagesDiv.appendChild(messageElement);
+            messagesDiv.scrollTop = messagesDiv.scrollHeight; // 스크롤을 맨 아래로
+        }
+    </script>
+</body>
+</html>

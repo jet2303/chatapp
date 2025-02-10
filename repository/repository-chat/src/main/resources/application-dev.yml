@@ -1,0 +1,27 @@
+spring:
+    datasource:
+        url: jdbc:h2:mem:testdb
+        driverClassName: org.h2.Driver
+        username: sa
+        password:
+# spring.jpa.database-platform=org.hibernate.dialect.H2Dialect
+
+    jpa:
+        hibernate:
+            ddl-auto: create
+# true 설정 시, 콘솔에 표시되는 쿼리를 가독성있게 보여준다.
+        properties:
+            hibernate:
+                format_sql: true
+# true 설정 시, 콘솔에 JPA 쿼리를 보여준다.
+        show-sql: true  
+
+# 추가해야할지도
+# spring.datasource.initialization-mode=never
+# spring.sql.init.data-locations=classpath*:data.sql
+        defer-datasource-initialization: true
+    sql:
+        init.mode: ALWAYS
+
+server:
+    port: 8081

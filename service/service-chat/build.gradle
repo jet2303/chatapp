@@ -1,0 +1,31 @@
+dependencies {
+
+		implementation project(':domain')
+		implementation project(':dto')
+		implementation project(':repository:repository-chat')
+		
+		testImplementation project(':app')
+		
+		implementation group: 'org.springframework.boot', name: 'spring-boot-starter', version: '3.2.10'
+		implementation group: 'org.springframework.boot', name: 'spring-boot-starter-data-jpa', version: '3.2.10'
+		implementation group: 'org.springframework.boot', name: 'spring-boot-starter-web', version: '3.2.10' 
+		
+		implementation 'org.springframework.kafka:spring-kafka'
+		
+		testRuntimeOnly 'org.junit.platform:junit-platform-launcher'	
+	    testImplementation 'org.junit.jupiter:junit-jupiter-api'
+    	testImplementation 'org.junit.jupiter:junit-jupiter-engine'
+    	testImplementation 'org.junit.jupiter:junit-jupiter-params'
+    	
+}
+
+bootJar {
+	enabled = false
+}
+
+jar {
+	enabled = true
+}
+
+
+

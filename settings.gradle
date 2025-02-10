@@ -1,0 +1,45 @@
+rootProject.name='chatapp'
+
+include ('domain','app', 'repository', 'dto')
+include ('service')
+include ('service:service-chat', 'service:service-kafka')
+include ('repository')
+include ('repository:repository-chat')
+include ('controller')
+include ('controller:controller-chat')
+
+
+//def subModuleList=["dto", "controller\\controller-chat", "controller\\controller-security"]
+//def subModuleFolderPath="D:\\sts_project\\chatapp\\"
+//def initProjectDir = [
+//    'src\\main\\java\\com\\',
+//    'src\\main\\resources',
+//    'src\\test\\java\\com\\',
+//    'src\\test\\resources'
+//]
+//def BUILD_GRADLE_INIT_TEXT = '''
+//dependencies{
+//
+//}
+//
+//'''
+//
+//for(subModule in subModuleList){
+//    def subModuleFolder = new File(subModuleFolderPath + subModule)
+//    if(!subModuleFolder.exists()){
+//        subModuleFolder.mkdirs()
+//    }
+//    
+//    def buildFile = new File(subModuleFolder , "build.gradle")
+//    if(!buildFile.exists()){
+//        buildFile.text = BUILD_GRADLE_INIT_TEXT
+//    }
+//    
+//    for(dir in initProjectDir){
+//        def srcDir = new File(subModuleFolder, dir)
+//        if(!srcDir.exists()){
+//            srcDir.mkdirs()
+//        }
+//        
+//    }
+//}
