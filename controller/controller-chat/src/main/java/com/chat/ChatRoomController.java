@@ -83,8 +83,8 @@ public class ChatRoomController {
      * @param request
      * @return
      */
-    @GetMapping("/room/{roomId}")
-    public ModelAndView chatRoom(HttpServletRequest request, @PathVariable String roomId, ModelAndView mv) {
+    @GetMapping(value = {"/room/{roomId}", "/room"})
+    public ModelAndView chatRoom(HttpServletRequest request, @PathVariable(name = "roomId", required = false) String roomId, ModelAndView mv) {
         // ChatRoom room = roomService.joinChatRoom(roomId);
         CommonResponse<ChatRoom> room = roomService.joinChatRoom(roomId);
         mv.addObject("room", room.getData());

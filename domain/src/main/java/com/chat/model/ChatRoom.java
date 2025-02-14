@@ -37,10 +37,10 @@ public class ChatRoom extends BaseEntity{
     private LocalDateTime updatedAt;
 
 	@Column(name = "member_cnt")
-    private int memberCnt;
+    private int memberCnt = 0;
 
 	@Column(name = "is_open")
-    private boolean isOpen;
+    private boolean isOpen = true;
     
 //    @Builder.Default
     @OneToMany(mappedBy = "chatRoom", cascade = CascadeType.ALL)
