@@ -50,7 +50,7 @@ class ChatRoomRepositoryTest {
         // chatRoom.addUser(chatUser2);
         
         saveChatRoom();
-        ChatRoom findResult = chatRoomRepository.findByRoomId("roomId1");
+        ChatRoom findResult = chatRoomRepository.findByRoomId("roomId1").get();
         
         assertAll( 
             () -> assertEquals("roomName1", findResult.getRoomName())

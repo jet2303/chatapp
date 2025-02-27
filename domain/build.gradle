@@ -1,8 +1,15 @@
 dependencies{
 
     implementation group: 'org.springframework.boot', name: 'spring-boot-starter-data-jpa', version: '3.2.10'
-
+	implementation 'org.springframework.boot:spring-boot-starter-validation'
 	compileOnly group: 'jakarta.servlet', name: 'jakarta.servlet-api', version: '6.1.0'
+	
+	implementation 'org.springframework.boot:spring-boot-starter-validation'
+	
+	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'	
+    testImplementation 'org.junit.jupiter:junit-jupiter-api'
+	testImplementation 'org.junit.jupiter:junit-jupiter-engine'
+	testImplementation 'org.junit.jupiter:junit-jupiter-params'
 
 }
 

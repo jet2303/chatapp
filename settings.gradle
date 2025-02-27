@@ -1,6 +1,6 @@
 rootProject.name='chatapp'
 
-include ('domain','app', 'repository', 'dto')
+include ('domain','app', 'repository', 'dto', 'common')
 include ('service')
 include ('service:service-chat', 'service:service-kafka')
 include ('repository')

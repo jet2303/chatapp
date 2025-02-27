@@ -1,10 +1,16 @@
 package com.chat;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import com.chat.common.exception.CustomErrorException;
+import com.chat.common.exception.ErrorCode;
 import com.chat.model.ChatUser;
+import com.chat.model.userrole.UserRole;
+import com.chat.modeldto.ChatUserDto;
+import com.chat.modeldto.SignupDto;
 import com.chat.repository.ChatUserRepository;
 
 import jakarta.servlet.http.Cookie;
@@ -37,6 +43,29 @@ public class ChatUserServiceImpl implements com.chat.ifs.ChatUserService {
         cookie.setMaxAge(-1);
         return cookie;
     }
+    
+	@Override
+	public ChatUser createdUser(SignupDto signupInfo) {
+		// password 암호화 진행.
+		// dto로 return		
+		ChatUser newUser = ChatUser.builder()
+				.userId(signupInfo.getUserId())
+				.userName(signupInfo.getUserName())
+				.password(signupInfo.getPassword())
+				.userStatus(true)
+				.createdAt(LocalDateTime.now())
+				.updatedAt(null)
+				.role(UserRole.valueOf(signupInfo.getRole()))
+				.build();
+		
+		try {
+			ChatUser savedUser = chatUserRepository.save(newUser);
+			return savedUser;
+		}catch(CustomErrorException e) {
+			throw new CustomErrorException(ErrorCode.FAILURE);
+		}
+		
+	}
 	
 	@Override
 	public List<ChatUser> getUsers() {
@@ -46,7 +75,8 @@ public class ChatUserServiceImpl implements com.chat.ifs.ChatUserService {
 	@Override
 	public ChatUser getUser(String userId) {
         // return chatUserRepository.findByUserId(userId);
-        return chatUserRepository.findByUserIdAndUserStatus(userId, true).get();
+        return chatUserRepository.findByUserIdAndUserStatus(userId, true)
+        							.orElseThrow(() -> new CustomErrorException(ErrorCode.FAILURE));
 	}
 
 	@Override
@@ -58,5 +88,6 @@ public class ChatUserServiceImpl implements com.chat.ifs.ChatUserService {
 	public void saveUser(ChatUser user) {
         chatUserRepository.save(user);
 	}
+	
 
 }

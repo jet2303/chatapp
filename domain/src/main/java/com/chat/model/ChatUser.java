@@ -2,6 +2,7 @@ package com.chat.model;
 
 import java.time.LocalDateTime;
 
+import com.chat.model.customConst.UserNameConst;
 import com.chat.model.userrole.UserRole;
 
 import jakarta.persistence.Column;
@@ -12,6 +13,7 @@ import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.validation.constraints.NotBlank;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -28,22 +30,27 @@ import lombok.Setter;
 public class ChatUser {
 	@Id
 	@Column(name =  "user_id")
+	@NotBlank
     private String userId;
 	
 	@Column(name = "user_name")
+	// @NotBlank
+	@UserNameConst
     private String userName;
 	
 	@Column(name = "user_status")
+	@NotBlank
     private boolean userStatus;
 
+    @Enumerated(EnumType.STRING)
+    @NotBlank
+    private UserRole role;
+    
 	@Column(name = "created_at")
     private LocalDateTime createdAt;
 	
 	@Column(name = "updated_at")
     private LocalDateTime updatedAt;
-
-    @Enumerated(EnumType.STRING)
-    private UserRole role;
     
     @Column(name = "password")
     private String password;

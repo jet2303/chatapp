@@ -4,11 +4,15 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
+import org.springframework.jdbc.support.CustomSQLErrorCodesTranslation;
 import org.springframework.stereotype.Service;
 
+import com.chat.common.exception.CustomErrorException;
+import com.chat.common.exception.ErrorCode;
 import com.chat.model.ChatRoom;
 import com.chat.model.ChatUser;
 import com.chat.model.userrole.UserRole;
+import com.chat.modeldto.ChatRoomDto;
 import com.chat.repository.ChatRoomRepository;
 import com.chat.repository.ChatUserRepository;
 
@@ -26,7 +30,7 @@ public class ChatRoomServiceImpl implements com.chat.ifs.ChatRoomService {
 	
 	@Override
 	@Transactional
-	public ChatRoom createChatRoom(String chatRoomName, String userId) {
+	public ChatRoomDto createChatRoom(String chatRoomName, String userId) {
         String chatRoomId = UUID.randomUUID().toString();
 
         ChatRoom chatRoom = new ChatRoom(chatRoomId, chatRoomName);
@@ -37,12 +41,15 @@ public class ChatRoomServiceImpl implements com.chat.ifs.ChatRoomService {
 //
 //            res.addUser(user.get());
         	
-        	Optional<ChatUser> user = chatUserRepository.findByUserIdAndUserStatus(userId, true );
-        	chatRoom.addUser(user.get());
+//        	Optional<ChatUser> user = chatUserRepository.findByUserIdAndUserStatus(userId, true );
+        	ChatUser user = chatUserRepository.findByUserIdAndUserStatus(userId, true ).orElseThrow(() -> new CustomErrorException(ErrorCode.FAILURE));
+        	
+        	chatRoom.addUser(user);
             chatRoom.addMemberCnt();
             chatRoom.setUpdate();
-        	ChatRoom res = chatRoomRepository.save(chatRoom);
-            return res;
+        	ChatRoom savedRoom = chatRoomRepository.save(chatRoom);
+        	ChatRoom res = Optional.of(savedRoom).orElseThrow( () -> new CustomErrorException(ErrorCode.FAILURE));
+            return toDto(res);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -52,26 +59,28 @@ public class ChatRoomServiceImpl implements com.chat.ifs.ChatRoomService {
 
 	@Override
 	@Transactional
-	public CommonResponse<ChatRoom> joinChatRoom(String roomId) {
+	public ChatRoomDto joinChatRoom(String roomId) {
         // ChatRoom chatRoom = chatRoomRepository.findByRoomId(roomId);
-        ChatRoom chatRoom = chatRoomRepository.findByRoomIdAndIsOpen(roomId, true);
-        Optional<ChatUser> joinUser = chatUserRepository.findByUserIdAndUserStatus("1", true);
-        chatRoom.addUser(joinUser.get());
+        ChatRoom chatRoom = chatRoomRepository.findByRoomIdAndIsOpen(roomId, true).orElseThrow(() -> new CustomErrorException(ErrorCode.FAILURE));
+        ChatUser joinUser = chatUserRepository.findByUserIdAndUserStatus("1", true).orElseThrow(() -> new CustomErrorException(ErrorCode.FAILURE));
+        chatRoom.addUser(joinUser);
         chatRoom.addMemberCnt();
         chatRoom.setUpdate();
-        chatRoomRepository.save(chatRoom);
-        return new CommonResponse<ChatRoom>(chatRoom);
+        
+        ChatRoom savedRoom = chatRoomRepository.save(chatRoom);
+        ChatRoom room = Optional.of(savedRoom).orElseThrow( () -> new CustomErrorException(ErrorCode.FAILURE));
+        return toDto(room);
 	}
 
 	@Override
 	@Transactional
-	public ChatRoom leaveRoom(String roomId) {
+	public ChatRoomDto leaveRoom(String roomId) {
         // ChatRoom chatRoom = chatRoomRepository.findByRoomId(roomId);
-        ChatRoom chatRoom = chatRoomRepository.findByRoomIdAndIsOpen(roomId, true);
-        Optional<ChatUser> deleteUser = chatUserRepository.findByUserIdAndUserStatus("1", true);
+        ChatRoom chatRoom = chatRoomRepository.findByRoomIdAndIsOpen(roomId, true).orElseThrow(() -> new CustomErrorException(ErrorCode.FAILURE));
+        ChatUser deleteUser = chatUserRepository.findByUserIdAndUserStatus("1", true).orElseThrow(() -> new CustomErrorException(ErrorCode.FAILURE));
         
-        chatRoom.getChatUserList().remove(deleteUser.get());
-        deleteUser.get().setChatRoom(null);
+        chatRoom.getChatUserList().remove(deleteUser);
+        deleteUser.setChatRoom(null);
         chatRoom.subMemberCnt();
         chatRoom.setUpdate();
         
@@ -81,29 +90,39 @@ public class ChatRoomServiceImpl implements com.chat.ifs.ChatRoomService {
             // chatRoomRepository.delete(chatRoom);
             chatRoom.isChatRoomOpen(false);
             chatRoomRepository.save(chatRoom);
-            // log.info("{}", chatRoomRepository.findByRoomId(roomId));
-            // log.info("{}", chatRoomRepository.findByRoomIdAndIsOpen(roomId, true));
         }
 
-        return chatRoom;
+        return toDto(chatRoom);
 	}
 
 	@Override
-	public List<ChatRoom> getRooms() {
-		// return chatRoomRepository.findAll();
-        return chatRoomRepository.findAllByIsOpen(true);
+	public List<ChatRoomDto> getRooms() {
+        return chatRoomRepository.findAllByIsOpen(true).get().stream()
+													        	.map(room -> toDto(room))
+													        	.toList();
 	}
 
 	@Override
-	public ChatRoom getRoom(String roomId) {
+	public ChatRoomDto getRoom(String roomId) {
         // return chatRoomRepository.findByRoomId(roomId);
-        return chatRoomRepository.findByRoomIdAndIsOpen(roomId, true);
+        return toDto(chatRoomRepository.findByRoomIdAndIsOpen(roomId, true).get());
 	}
 
 	@Override
 	public void updateRoom(ChatRoom room) {
 		room.setUpdate();
         chatRoomRepository.save(room);
+	}
+	
+	private ChatRoomDto toDto(ChatRoom room) {
+		return ChatRoomDto.builder()
+				.roomId(room.getRoomId())
+				.roomName(room.getRoomName())
+				.updatedAt(room.getUpdatedAt().toString())
+				.memberCnt(room.getMemberCnt())
+				.isOpen(room.isOpen())
+				.chatUserList(room.getChatUserList())
+				.build();
 	}
 
 }

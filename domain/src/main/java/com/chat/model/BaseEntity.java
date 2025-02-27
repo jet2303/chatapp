@@ -8,6 +8,8 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import jakarta.persistence.EntityListeners;
 import jakarta.persistence.MappedSuperclass;
+import jakarta.persistence.PrePersist;
+import jakarta.persistence.PreUpdate;
 import lombok.Getter;
 
 @MappedSuperclass
@@ -21,4 +23,15 @@ public abstract class BaseEntity {
 	@CreatedDate
 	private LocalDateTime createdAt;
 
+	
+	 @PrePersist
+	 public void prePersist() {
+		 LocalDateTime now = LocalDateTime.now();
+		 this.createdAt = now;
+		 
+	 }
+//	 @PreUpdate
+//	 public void preUpdate() {
+//		 	
+//	 }
 }

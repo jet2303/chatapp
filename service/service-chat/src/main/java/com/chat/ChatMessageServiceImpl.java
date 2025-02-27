@@ -7,6 +7,8 @@ import com.chat.ifs.ChatMessageService;
 import com.chat.ifs.ChatRoomService;
 import com.chat.model.ChatMessage;
 
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor

@@ -8,11 +8,12 @@ import com.chat.model.ChatUser;
 
 public interface ChatUserRepository extends JpaRepository<ChatUser, String> {
 
-    ChatUser findByUserId(String userId);
+    Optional<ChatUser> findByUserId(String userId);
 
     Optional<ChatUser> findByUserIdAndUserStatus(String userId, boolean userStatus);
 
     Optional<ChatUser> findByUserNameAndUserStatus(String userName, boolean userStatus);
 
-    boolean existsByUserId(String userId);
+    Optional<Boolean> existsByUserId(String userId);
+    
 }

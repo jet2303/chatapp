@@ -17,9 +17,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.chat.model.ChatRoom;
+import com.chat.modeldto.ChatRoomDto;
 
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -50,7 +52,7 @@ public class ChatRoomController {
      * @return
      */
     @GetMapping("/getRooms")
-    public @ResponseBody List<ChatRoom> getRooms(HttpServletRequest request) {
+    public @ResponseBody List<ChatRoomDto> getRooms(HttpServletRequest request) {
         return roomService.getRooms();
     }
 
@@ -64,8 +66,8 @@ public class ChatRoomController {
     // createRoom(HttpServletRequest request, @RequestBody Map<String, String>
     // roomName) {
     @PostMapping(value = "/createRoom")
-    public ResponseEntity<? extends CommonResponse<ChatRoom>> createRoom(HttpServletRequest request,
-            @RequestBody Map<String, String> roomName) {
+    public ResponseEntity<? extends CommonResponse<ChatRoomDto>> createRoom(HttpServletRequest request,
+            @Valid @RequestBody Map<String, String> roomName) {
         Cookie[] cookies = request.getCookies();
         List<Cookie> cookieList = Arrays.asList(cookies);
         Cookie resCookie = cookieList.stream().filter(cookie -> cookie.getName().equals("userId"))
@@ -73,8 +75,8 @@ public class ChatRoomController {
                 .orElseThrow(() -> new RuntimeException("맞는 쿠키X"));
         String userId = resCookie.getValue();
 
-        ChatRoom room = roomService.createChatRoom(roomName.get("roomName"), userId);
-        return ResponseEntity.status(HttpStatus.OK).body(new CommonResponse<>(room));
+        ChatRoomDto createdRoom = roomService.createChatRoom(roomName.get("roomName"), userId);
+        return ResponseEntity.status(HttpStatus.OK).body(new CommonResponse<>(createdRoom));
     }
 
     /***
@@ -84,10 +86,11 @@ public class ChatRoomController {
      * @return
      */
     @GetMapping(value = {"/room/{roomId}", "/room"})
-    public ModelAndView chatRoom(HttpServletRequest request, @PathVariable(name = "roomId", required = false) String roomId, ModelAndView mv) {
-        // ChatRoom room = roomService.joinChatRoom(roomId);
-        CommonResponse<ChatRoom> room = roomService.joinChatRoom(roomId);
-        mv.addObject("room", room.getData());
+    public ModelAndView chatRoom(HttpServletRequest request
+    								, @Valid @PathVariable(name = "roomId") String roomId, ModelAndView mv) {
+//        CommonResponse<ChatRoomDto> room = roomService.joinChatRoom(roomId);
+    	ChatRoomDto joinRoom = roomService.joinChatRoom(roomId);
+        mv.addObject("room", joinRoom);
         // dto로 받아올것.
         // mv.addObject("participants", room.getData().getChatUserList());
         mv.setViewName("content/chatRoom");

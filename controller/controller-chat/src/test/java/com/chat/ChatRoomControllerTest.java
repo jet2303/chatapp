@@ -7,7 +7,9 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import java.time.LocalDateTime;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -31,6 +33,8 @@ import org.springframework.web.filter.CharacterEncodingFilter;
 import com.chat.ifs.ChatMessageService;
 import com.chat.ifs.ChatRoomService;
 import com.chat.model.ChatRoom;
+import com.chat.model.ChatUser;
+import com.chat.modeldto.ChatRoomDto;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import jakarta.servlet.http.Cookie;
@@ -66,11 +70,20 @@ class ChatRoomControllerTest {
 	public void createRoom() throws Exception{
 		// given
 		ChatRoom retRoom = new ChatRoom("roomId", "roomName");
+		ChatRoomDto retRoomDto = ChatRoomDto.builder()
+				.roomId("roomId")
+				.roomName("roomName")
+				.updatedAt(LocalDateTime.now().toString())
+				.memberCnt(2)
+				.isOpen(true)
+				.chatUserList(List.of(new ChatUser("userId1", "userName1"), new ChatUser("userId2", "userName2")))
+				.build();
+		
 		Map<String, String> sendData = new HashMap<>();
 		sendData.put("roomName", "roomNameKey");		
 		
 		// when
-		when(chatRoomService.createChatRoom(any(String.class), any(String.class))).thenReturn(retRoom);
+		when(chatRoomService.createChatRoom(any(String.class), any(String.class))).thenReturn(retRoomDto);
 		
 		this.mockMvc.perform(post("/chatRooms/createRoom")
 							.cookie(new Cookie("userId", "1"))
@@ -87,8 +100,16 @@ class ChatRoomControllerTest {
 	public void chatRoom() throws Exception{
 		// given
 		ChatRoom retRoom = new ChatRoom("roomId", "roomName");
+		ChatRoomDto retRoomDto = ChatRoomDto.builder()
+				.roomId("roomId")
+				.roomName("roomName")
+				.updatedAt(LocalDateTime.now().toString())
+				.memberCnt(2)
+				.isOpen(true)
+				.chatUserList(List.of(new ChatUser("userId1", "userName1"), new ChatUser("userId2", "userName2")))
+				.build();
 //		retRoom.addUser(null);
-		when(chatRoomService.joinChatRoom(any(String.class))).thenReturn(new CommonResponse<ChatRoom>(retRoom));
+		when(chatRoomService.joinChatRoom(any(String.class))).thenReturn(retRoomDto);
 		
 	    this.mockMvc.perform(get("/chatRooms/room/1"))
 //	    						.param("roomId", "1"))

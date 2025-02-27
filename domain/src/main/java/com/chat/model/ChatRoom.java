@@ -9,12 +9,14 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
+import jakarta.validation.constraints.NotBlank;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 @Entity
 @NoArgsConstructor
@@ -22,13 +24,16 @@ import lombok.Setter;
 @Getter
 @Setter
 @Builder
+@ToString
 public class ChatRoom extends BaseEntity{
 
 	@Id
 	@Column(name = "room_id")
+	@NotBlank
 	private String roomId;
 	
 	@Column(name = "room_name")
+	@NotBlank
     private String roomName;
 
     // BaseEntity 추가로 인한 삭제
@@ -40,6 +45,7 @@ public class ChatRoom extends BaseEntity{
     private int memberCnt = 0;
 
 	@Column(name = "is_open")
+	@NotBlank
     private boolean isOpen = true;
     
 //    @Builder.Default
@@ -53,6 +59,7 @@ public class ChatRoom extends BaseEntity{
         // this.createdAt = LocalDateTime.now();
         // this.updatedAt = LocalDateTime.now();
         this.memberCnt = 0;
+        
     }
 
     public void addMemberCnt() {
