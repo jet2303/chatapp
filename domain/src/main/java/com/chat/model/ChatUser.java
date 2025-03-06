@@ -2,7 +2,7 @@ package com.chat.model;
 
 import java.time.LocalDateTime;
 
-import com.chat.model.customConst.UserNameConst;
+import com.chat.common.custom.customConst.UserNameConst;
 import com.chat.model.userrole.UserRole;
 
 import jakarta.persistence.Column;
@@ -30,20 +30,16 @@ import lombok.Setter;
 public class ChatUser {
 	@Id
 	@Column(name =  "user_id")
-	@NotBlank
     private String userId;
 	
 	@Column(name = "user_name")
-	// @NotBlank
-	@UserNameConst
+//	@UserNameConst
     private String userName;
 	
 	@Column(name = "user_status")
-	@NotBlank
     private boolean userStatus;
 
     @Enumerated(EnumType.STRING)
-    @NotBlank
     private UserRole role;
     
 	@Column(name = "created_at")

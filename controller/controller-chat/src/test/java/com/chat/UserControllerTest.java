@@ -5,19 +5,16 @@ import static org.junit.jupiter.api.Assertions.*;
 import java.util.Arrays;
 
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.context.TestConfiguration;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Import;
 import org.springframework.http.MediaType;
-import org.springframework.messaging.simp.SimpMessagingTemplate;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
+import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
@@ -26,16 +23,17 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.filter.CharacterEncodingFilter;
 
-import com.chat.config.WebSocketConfig;
-import com.chat.ifs.ChatUserService;
 import com.chat.modeldto.SignupDto;
+import com.chat.repository.ChatUserRepository;
+import com.chat.websocket.config.WebSocketConfig;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-@SpringBootTest(classes = {ChatMessageServiceImpl.class, SimpMessagingTemplate.class})
-//@Import({UserController.class, ChatUserServiceImpl.class})
 //@ExtendWith(SpringExtension.class)
-//@SpringBootTest
-@Import(WebSocketConfig.class)
+//@Import(WebSocketConfig.class)
+//@AutoConfigureMockMvc
+
+//@SpringBootTest(classes = {UserController.class, ChatUserServiceImpl.class, ChatUserRepository.class}, properties = "spring.config.name=application-test")
+@SpringBootTest(properties = "spring.config.name=application-test")
 @AutoConfigureMockMvc
 class UserControllerTest {
 
@@ -58,10 +56,29 @@ class UserControllerTest {
 	}
 	
 	@Test
-	void test() throws Exception{
+	@DisplayName("userid 가 null 일때")
+	void test1() throws Exception{
 		
 		SignupDto request = SignupDto.builder()
-				.userId("userId").password("password").userName(null).role("ROLE_USER")
+				.userId(null).password("password").userName("name").role("ROLE_USER")
+				.build();
+		
+		
+		mockMvc.perform(MockMvcRequestBuilders.post("/createUser")
+												.contentType(MediaType.APPLICATION_JSON) 
+												.content(obj.writeValueAsString(request))	)
+				.andDo(MockMvcResultHandlers.print())
+				.andExpect(MockMvcResultMatchers.status().is4xxClientError());
+				
+	}
+	
+	@Test
+	@DisplayName("user 이름이 영어가 아님")
+	void test2() throws Exception{
+		
+		SignupDto request = SignupDto.builder()
+				.userId("userId").password("password").userName("123123").role("ROLE_USER")
+				
 				.build();
 		
 		

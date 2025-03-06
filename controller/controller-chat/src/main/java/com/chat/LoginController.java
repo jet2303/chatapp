@@ -16,6 +16,8 @@ import com.chat.model.ChatUser;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -25,9 +27,12 @@ import lombok.extern.slf4j.Slf4j;
 public class LoginController {
 	private final ApplicationEventPublisher applicationEventPublisher;
 
-    public LoginController(ChatUserService userService, ApplicationEventPublisher applicationEventPublisher) {
-        this.applicationEventPublisher = applicationEventPublisher;
-    }
+//	private final ChatUserService chatUserService;
+	
+//    public LoginController(ChatUserService userService, ApplicationEventPublisher applicationEventPublisher) {
+//        this.applicationEventPublisher = applicationEventPublisher;
+//        this.chatUserService = userService;
+//    }
 
     /***
      * 로그인 페이지

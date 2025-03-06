@@ -1,4 +1,4 @@
-package com.chat.model.customConst;
+package com.chat.common.custom.customConst;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;

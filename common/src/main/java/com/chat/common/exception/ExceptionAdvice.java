@@ -25,8 +25,8 @@ public class ExceptionAdvice extends ResponseEntityExceptionHandler {
 	        for (FieldError error : result.getFieldErrors()) {
 	            errMessage.append("[")
 	                    .append(error.getField())
-	                    .append("] ")
-	                    .append(":")
+	                    .append("]")
+	                    .append(" : ")
 	                    .append(error.getDefaultMessage());
 	        }
 

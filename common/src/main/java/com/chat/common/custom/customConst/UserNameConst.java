@@ -1,4 +1,4 @@
-package com.chat.model.customConst;
+package com.chat.common.custom.customConst;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
