@@ -1,12 +1,13 @@
 rootProject.name='chatapp'
 
-include ('domain','app', 'repository', 'dto', 'common')
+include ('domain','app', 'repository', 'dto', 'common', 'config')
 include ('service')
 include ('service:service-chat', 'service:service-kafka')
 include ('repository')
 include ('repository:repository-chat')
 include ('controller')
 include ('controller:controller-chat')
+
 
 
 //def subModuleList=["dto", "controller\\controller-chat", "controller\\controller-security"]
