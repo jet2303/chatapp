@@ -1,5 +1,9 @@
 dependencies{
 
+    implementation 'com.mysql:mysql-connector-j'    
+    // implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	runtimeOnly 'com.mysql:mysql-connector-j'
+
 }
 bootJar {
 	enabled = false
@@ -9,3 +13,7 @@ jar {
 	enabled = true
 }
 
+
+/*
+	mysql 연결 테스트, 테스트 코드 작성, dev <> prod 변경후 테스트 코드 확인
+*/

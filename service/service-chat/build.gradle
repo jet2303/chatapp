@@ -4,6 +4,7 @@ dependencies {
 		implementation project(':dto')
 		implementation project(':repository:repository-chat')
 		implementation project(':common')
+		implementation project(':config')
 		
 		testImplementation project(':app')
 		

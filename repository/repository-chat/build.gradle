@@ -1,5 +1,6 @@
 dependencies {
 	implementation project(':domain')
+	implementation project(':config')
 	
 	implementation group: 'org.springframework.boot', name: 'spring-boot-starter-data-jpa', version: '3.2.10'
 	
@@ -10,6 +11,9 @@ dependencies {
     testImplementation 'org.junit.jupiter:junit-jupiter-api'
 	testImplementation 'org.junit.jupiter:junit-jupiter-engine'
 	testImplementation 'org.junit.jupiter:junit-jupiter-params'
+	
+	testImplementation "org.testcontainers:mysql:1.17.2"
+	testImplementation "org.testcontainers:junit-jupiter:1.17.2"
 }
 
 bootJar {

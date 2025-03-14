@@ -1,5 +1,6 @@
 dependencies{
 
+	implementation project(':config')
 	implementation project(':domain')
 	implementation project(':service:service-chat')
 	implementation project(':dto')
