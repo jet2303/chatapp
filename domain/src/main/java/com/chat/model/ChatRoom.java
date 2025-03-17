@@ -29,11 +29,9 @@ public class ChatRoom extends BaseEntity{
 
 	@Id
 	@Column(name = "room_id")
-	@NotBlank
 	private String roomId;
 	
 	@Column(name = "room_name")
-	@NotBlank
     private String roomName;
 
     // BaseEntity 추가로 인한 삭제
@@ -45,7 +43,6 @@ public class ChatRoom extends BaseEntity{
     private int memberCnt = 0;
 
 	@Column(name = "is_open")
-	@NotBlank
     private boolean isOpen = true;
     
 //    @Builder.Default

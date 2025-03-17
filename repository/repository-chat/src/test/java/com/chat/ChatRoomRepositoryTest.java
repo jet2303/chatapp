@@ -2,6 +2,8 @@ package com.chat;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.time.LocalDateTime;
+
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -11,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.chat.model.ChatRoom;
 import com.chat.model.ChatUser;
+import com.chat.model.userrole.UserRole;
 import com.chat.repository.ChatRoomRepository;
 
 @SpringBootTest(classes = TestApplication.class)
@@ -27,9 +30,13 @@ class ChatRoomRepositoryTest {
 
     @BeforeEach
     public void setUp(){
-        chatUser1 = new ChatUser("userId1", "userName1");
-        chatUser2 = new ChatUser("userId2", "userName2");
         
+        chatUser1 = ChatUser.builder().userId("userId1").userName("userName1").userStatus(true)
+        		.role(UserRole.ROLE_USER).createdAt(LocalDateTime.now()).updatedAt(LocalDateTime.now()).password("password").build();
+
+        chatUser2 = ChatUser.builder().userId("userId2").userName("userName2").userStatus(true)
+        		.role(UserRole.ROLE_USER).createdAt(LocalDateTime.now()).updatedAt(LocalDateTime.now()).password("password").build();
+
         chatRoom = new ChatRoom("roomId1", "roomName1");
         
         chatRoom.addUser(chatUser1);
