@@ -1,0 +1,23 @@
+spring:
+  config:
+    import:
+      - classpath:config-db-dev.yml
+  kafka:
+    bootstrap-servers:
+    - http://localhost:9092
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+    consumer:
+      group-id: webchat
+      auto-offset-reset: earliest
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+    listener:
+      missing-topics-fatal: false # 없는 토픽이 있어도 예외 발생 방지
+  main:
+    allow-bean-definition-overriding: true
+        
+kafka:  # Kafka custom topic도 따로 config-kafka-dev.yml 로 분할하려 했지만 안됨... 이유 확인필요. 
+  topic:
+    my-topic: webchat-topic # 멀티 모듈 환경에서 같은 이름의 Bean을 컨트롤러 모듈에서 주입받기 위한 설정.
