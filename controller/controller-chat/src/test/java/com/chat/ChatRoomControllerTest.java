@@ -30,11 +30,11 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.filter.CharacterEncodingFilter;
 
+import com.chat.domain.modeldto.ChatRoomDto;
 import com.chat.ifs.ChatMessageService;
 import com.chat.ifs.ChatRoomService;
 import com.chat.model.ChatRoom;
 import com.chat.model.ChatUser;
-import com.chat.modeldto.ChatRoomDto;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import jakarta.servlet.http.Cookie;

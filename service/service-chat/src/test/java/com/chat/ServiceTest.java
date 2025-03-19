@@ -17,10 +17,10 @@ import org.mockito.Mock;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import com.chat.domain.modeldto.ChatRoomDto;
 import com.chat.ifs.ChatRoomService;
 import com.chat.model.ChatRoom;
 import com.chat.model.ChatUser;
-import com.chat.modeldto.ChatRoomDto;
 import com.chat.repository.ChatRoomRepository;
 import com.chat.repository.ChatUserRepository;
 

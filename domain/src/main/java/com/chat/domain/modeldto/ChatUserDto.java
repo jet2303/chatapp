@@ -1,8 +1,9 @@
-package com.chat.modeldto;
+package com.chat.domain.modeldto;
 
 import java.time.LocalDateTime;
 
 import com.chat.model.ChatRoom;
+
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;

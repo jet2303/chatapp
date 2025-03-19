@@ -1,4 +1,4 @@
-package com.chat.modeldto;
+package com.chat.domain.modeldto;
 
 import java.util.List;
 

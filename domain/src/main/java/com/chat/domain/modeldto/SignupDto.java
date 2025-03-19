@@ -1,4 +1,4 @@
-package com.chat.common.modeldto;
+package com.chat.domain.modeldto;
 
 
 import com.chat.common.custom.customConst.UserNameConst;

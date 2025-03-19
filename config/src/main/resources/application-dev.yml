@@ -16,8 +16,8 @@ spring:
     listener:
       missing-topics-fatal: false # 없는 토픽이 있어도 예외 발생 방지
   main:
-    allow-bean-definition-overriding: true
+    allow-bean-definition-overriding: true # 멀티 모듈 환경에서 같은 이름의 Bean을 컨트롤러 모듈에서 주입받기 위한 설정.
         
 kafka:  # Kafka custom topic도 따로 config-kafka-dev.yml 로 분할하려 했지만 안됨... 이유 확인필요. 
   topic:
-    my-topic: webchat-topic # 멀티 모듈 환경에서 같은 이름의 Bean을 컨트롤러 모듈에서 주입받기 위한 설정.
+    my-topic: webchat-topic 

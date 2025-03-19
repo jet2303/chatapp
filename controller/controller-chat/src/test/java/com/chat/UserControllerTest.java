@@ -10,7 +10,8 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 
 import org.springframework.http.MediaType;
-
+import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
@@ -19,7 +20,7 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.filter.CharacterEncodingFilter;
 
-import com.chat.modeldto.SignupDto;
+import com.chat.domain.modeldto.SignupDto;
 import com.chat.websocket.config.WebSocketConfig;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -30,6 +31,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 //@SpringBootTest(classes = {UserController.class, ChatUserServiceImpl.class, ChatUserRepository.class}, properties = "spring.config.name=application-test")
 @SpringBootTest(properties = "spring.config.name=application-test")
 @AutoConfigureMockMvc
+//@TestPropertySource(locations = "classpath:application-dev.yml")
+@ActiveProfiles("dev")
 class UserControllerTest {
 
 	@Autowired

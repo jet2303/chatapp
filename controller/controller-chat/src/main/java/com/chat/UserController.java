@@ -6,10 +6,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.chat.domain.modeldto.SignupDto;
 import com.chat.ifs.ChatUserService;
 import com.chat.model.ChatUser;
-import com.chat.modeldto.ChatUserDto;
-import com.chat.modeldto.SignupDto;
 
 import jakarta.validation.Valid;
 import lombok.NoArgsConstructor;

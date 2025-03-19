@@ -18,22 +18,23 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.jdbc.support.CustomSQLExceptionTranslatorRegistrar;
 import org.springframework.messaging.handler.annotation.support.MethodArgumentNotValidException;
+import org.springframework.test.context.ActiveProfiles;
 
 import com.chat.common.exception.CustomErrorException;
 import com.chat.common.exception.ErrorCode;
+import com.chat.domain.modeldto.SignupDto;
 import com.chat.ifs.ChatRoomService;
 import com.chat.ifs.ChatUserService;
 import com.chat.model.ChatRoom;
 import com.chat.model.ChatUser;
 import com.chat.model.userrole.UserRole;
-import com.chat.modeldto.ChatUserDto;
-import com.chat.modeldto.SignupDto;
 import com.chat.repository.ChatUserRepository;
 
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.Validator;
 
 @DataJpaTest
+@ActiveProfiles("dev")
 class UserServiceTest {
 
 	@Mock

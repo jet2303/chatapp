@@ -16,8 +16,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.chat.common.response.CommonResponse;
+import com.chat.domain.modeldto.ChatRoomDto;
 import com.chat.model.ChatRoom;
-import com.chat.modeldto.ChatRoomDto;
 
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;

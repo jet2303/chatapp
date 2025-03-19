@@ -2,8 +2,8 @@ package com.chat.ifs;
 
 import java.util.List;
 
+import com.chat.domain.modeldto.SignupDto;
 import com.chat.model.ChatUser;
-import com.chat.modeldto.SignupDto;
 
 public interface ChatUserService {
     public List<ChatUser> getUsers();

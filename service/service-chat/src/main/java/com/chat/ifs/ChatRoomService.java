@@ -4,9 +4,8 @@ import java.util.List;
 
 import org.springframework.transaction.annotation.Transactional;
 
-import com.chat.CommonResponse;
+import com.chat.domain.modeldto.ChatRoomDto;
 import com.chat.model.ChatRoom;
-import com.chat.modeldto.ChatRoomDto;
 
 //import jakarta.transaction.Transactional;
 

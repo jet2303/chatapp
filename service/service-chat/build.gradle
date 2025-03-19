@@ -1,7 +1,7 @@
 dependencies {
 
 		implementation project(':domain')
-		implementation project(':dto')
+		
 		implementation project(':repository:repository-chat')
 		implementation project(':common')
 		implementation project(':config')

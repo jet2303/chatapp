@@ -68,6 +68,17 @@ subprojects {
 
 }
 
+tasks.register('testDev', Test) {
+    systemProperty 'spring.profiles.active', 'dev'
+}
+
+tasks.register('testProd', Test) {
+    systemProperty 'spring.profiles.active', 'prod'
+}
+
+tasks.register('testAll') {
+    dependsOn 'testDev', 'testProd'
+}
 //bootJar {
 //	enabled = false
 //}

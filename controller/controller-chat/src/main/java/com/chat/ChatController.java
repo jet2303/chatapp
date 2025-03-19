@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
+import com.chat.common.response.CommonResponse;
 import com.chat.ifs.ChatMessageService;
 import com.chat.model.ChatMessage;
 

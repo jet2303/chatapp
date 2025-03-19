@@ -7,10 +7,9 @@ import org.springframework.stereotype.Service;
 
 import com.chat.common.exception.CustomErrorException;
 import com.chat.common.exception.ErrorCode;
+import com.chat.domain.modeldto.SignupDto;
 import com.chat.model.ChatUser;
 import com.chat.model.userrole.UserRole;
-import com.chat.modeldto.ChatUserDto;
-import com.chat.modeldto.SignupDto;
 import com.chat.repository.ChatUserRepository;
 
 import jakarta.servlet.http.Cookie;
