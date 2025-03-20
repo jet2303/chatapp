@@ -99,5 +99,9 @@ class UserServiceTest {
 		
 	}
 
-
+	@Test
+	@DisplayName("jenkins test")
+	void test3() {
+		assertEquals("null", "null");
+	}
 }
