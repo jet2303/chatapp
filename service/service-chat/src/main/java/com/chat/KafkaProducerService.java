@@ -16,6 +16,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class KafkaProducerService {
 
+//	@Value("${kafka.topic.name}")
 	@Value("${kafka.topic.name}")
 	private String topicName;
 	
