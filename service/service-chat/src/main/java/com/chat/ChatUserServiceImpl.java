@@ -52,7 +52,7 @@ public class ChatUserServiceImpl implements com.chat.ifs.ChatUserService {
 				.userName(signupInfo.getUserName())
 				.password(signupInfo.getPassword())
 				.userStatus(true)
-				.createdAt(LocalDateTime.now())
+//				.createdAt(LocalDateTime.now())
 				.updatedAt(null)
 				.role(UserRole.valueOf(signupInfo.getRole()))
 				.build();

@@ -52,7 +52,6 @@ class UserServiceTest {
 				.userName("userName")
 				.password("password")
 				.userStatus(true)
-				.createdAt(LocalDateTime.now())
 				.updatedAt(null)
 				.role(UserRole.ROLE_USER)
 				.chatRoom(new ChatRoom("roomId", "rommName"))

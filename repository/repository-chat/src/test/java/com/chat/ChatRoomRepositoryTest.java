@@ -32,10 +32,10 @@ class ChatRoomRepositoryTest {
     public void setUp(){
         
         chatUser1 = ChatUser.builder().userId("userId1").userName("userName1").userStatus(true)
-        		.role(UserRole.ROLE_USER).createdAt(LocalDateTime.now()).updatedAt(LocalDateTime.now()).password("password").build();
+        		.role(UserRole.ROLE_USER).updatedAt(LocalDateTime.now()).password("password").build();
 
         chatUser2 = ChatUser.builder().userId("userId2").userName("userName2").userStatus(true)
-        		.role(UserRole.ROLE_USER).createdAt(LocalDateTime.now()).updatedAt(LocalDateTime.now()).password("password").build();
+        		.role(UserRole.ROLE_USER).updatedAt(LocalDateTime.now()).password("password").build();
 
         chatRoom = new ChatRoom("roomId1", "roomName1");
         

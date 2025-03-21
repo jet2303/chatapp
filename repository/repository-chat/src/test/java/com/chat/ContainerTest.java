@@ -43,7 +43,6 @@ class ContainerTest {
     	ChatUser user = ChatUser.builder()
     			.userId("Testuserid").userName("TestuserName")
     			.userStatus(true).role(UserRole.ROLE_USER)
-    			.createdAt(LocalDateTime.now())
     			.updatedAt(LocalDateTime.now().plusHours(1L))
     			.password("passwordTest")
     			.build();

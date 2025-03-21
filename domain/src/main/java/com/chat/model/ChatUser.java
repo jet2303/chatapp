@@ -20,6 +20,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 @Entity
 @Getter
@@ -27,7 +28,8 @@ import lombok.Setter;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class ChatUser {
+@ToString
+public class ChatUser extends BaseEntity {
 	@Id
 	@Column(name =  "user_id")
     private String userId;
@@ -42,8 +44,8 @@ public class ChatUser {
     @Enumerated(EnumType.STRING)
     private UserRole role;
     
-	@Column(name = "created_at")
-    private LocalDateTime createdAt;
+//	@Column(name = "created_at")
+//    private LocalDateTime createdAt;
 	
 	@Column(name = "updated_at")
     private LocalDateTime updatedAt;

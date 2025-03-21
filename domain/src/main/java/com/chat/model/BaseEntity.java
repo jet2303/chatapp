@@ -30,7 +30,8 @@ public abstract class BaseEntity {
 		 this.createdAt = now;
 		 
 	 }
-//	 @PreUpdate
+
+	//	 @PreUpdate
 //	 public void preUpdate() {
 //		 	
 //	 }
