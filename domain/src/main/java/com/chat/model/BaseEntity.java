@@ -28,11 +28,10 @@ public abstract class BaseEntity {
 	 public void prePersist() {
 		 LocalDateTime now = LocalDateTime.now();
 		 this.createdAt = now;
-		 
 	 }
 
-	//	 @PreUpdate
-//	 public void preUpdate() {
-//		 	
-//	 }
+	 @PreUpdate
+	 public void preUpdate() {
+		 	
+	 }
 }
