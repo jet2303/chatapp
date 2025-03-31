@@ -5,6 +5,7 @@ dependencies {
 		implementation project(':repository:repository-chat')
 		implementation project(':common')
 		implementation project(':config')
+		implementation project(':infra:redis')
 		
 		testImplementation project(':app')
 		

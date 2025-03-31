@@ -24,11 +24,11 @@ public abstract class BaseEntity {
 	private LocalDateTime createdAt;
 
 	
-	 @PrePersist
-	 public void prePersist() {
-		 LocalDateTime now = LocalDateTime.now();
-		 this.createdAt = now;
-	 }
+	@PrePersist
+	public void prePersist() {
+		LocalDateTime now = LocalDateTime.now();
+	 	this.createdAt = now;
+	}
 
 
 }
