@@ -52,6 +52,7 @@ public class RedisConfig {
         return redisTemplate;
     }
     
+    
     // redis cache 설정
     @Bean
     public RedisCacheManager redisCacheManager() {
