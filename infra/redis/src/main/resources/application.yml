@@ -1,7 +1,6 @@
-#spring.redis.host=localhost
-#spring.redis.port=6379
 spring:
   data:
     redis:
       host: localhost
       port: 6379
+      password: redispw
